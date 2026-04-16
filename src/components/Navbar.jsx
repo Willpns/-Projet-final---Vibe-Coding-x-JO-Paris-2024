@@ -25,20 +25,21 @@ export default function Navbar() {
   return (
     <header
       id="navbar"
+      className={scrolled ? 'navbar-scrolled' : ''}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         zIndex: 1000,
-        padding: scrolled ? '0.6rem 2rem' : '1.1rem 2rem',
-        transition: 'all 0.35s ease',
+        padding: scrolled ? '0.5rem 2rem' : '1rem 2rem',
+        transition: 'padding 0.3s ease, background 0.35s ease, box-shadow 0.35s ease',
         background: scrolled
-          ? 'rgba(11, 29, 58, 0.92)'
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(14px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(14px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(201,168,76,0.2)' : 'none',
+          ? 'rgba(11, 29, 58, 0.95)'
+          : 'linear-gradient(to bottom, rgba(11,29,58,0.8) 0%, transparent 100%)',
+        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'blur(4px)',
+        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'blur(4px)',
+        borderBottom: scrolled ? '1px solid rgba(201,168,76,0.18)' : '1px solid transparent',
       }}
     >
       <nav style={{

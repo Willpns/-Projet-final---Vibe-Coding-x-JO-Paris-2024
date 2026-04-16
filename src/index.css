@@ -173,21 +173,100 @@ h1, h2, h3, h4 {
   z-index: 0;
 }
 
-/* ─── Fade-in animation ─── */
+/* ─── Animations ─── */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(201,168,76,0); }
+}
 
-.animate-fadeInUp { animation: fadeInUp 0.7s ease forwards; }
-.animate-fadeIn   { animation: fadeIn 0.6s ease forwards; }
-.delay-100 { animation-delay: 0.1s; opacity: 0; }
-.delay-200 { animation-delay: 0.2s; opacity: 0; }
-.delay-300 { animation-delay: 0.3s; opacity: 0; }
-.delay-400 { animation-delay: 0.4s; opacity: 0; }
-.delay-500 { animation-delay: 0.5s; opacity: 0; }
-.delay-600 { animation-delay: 0.6s; opacity: 0; }
+.animate-fadeInUp    { animation: fadeInUp    0.7s cubic-bezier(0.4,0,0.2,1) both; }
+.animate-fadeIn      { animation: fadeIn      0.6s ease both; }
+.animate-slideInLeft { animation: slideInLeft 0.7s cubic-bezier(0.4,0,0.2,1) both; }
+.animate-scaleIn     { animation: scaleIn     0.6s cubic-bezier(0.4,0,0.2,1) both; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+
+/* ─── Heritage image ─── */
+.heritage-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.06);
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 0.5s ease;
+}
+.heritage-img:hover {
+  transform: scale(1.015);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(201,168,76,0.2);
+}
+
+/* Wrapper fig avec légende */
+.heritage-fig {
+  margin: 2rem 0;
+  overflow: hidden;
+  border-radius: 16px;
+  position: relative;
+}
+.heritage-fig figcaption {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(250,247,240,0.38);
+  letter-spacing: 0.05em;
+  padding: 0.6rem 0.25rem 0;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ─── Navbar border-bottom ─── */
+.navbar-scrolled {
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4), 0 1px 0 rgba(201,168,76,0.15);
+}
+
+/* ─── Card premium hover ─── */
+.card-premium {
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.3s cubic-bezier(0.4,0,0.2,1),
+              border-color 0.3s ease;
+}
+.card-premium:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.2);
+}
+
+/* ─── Responsive helpers ─── */
+@media (max-width: 768px) {
+  .grid-responsive {
+    grid-template-columns: 1fr !important;
+  }
+  .hide-mobile { display: none !important; }
+}

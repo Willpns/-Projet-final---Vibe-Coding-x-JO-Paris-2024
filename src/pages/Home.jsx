@@ -95,7 +95,7 @@ export default function Home() {
         }} />
 
         {/* Content */}
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px' }}>
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', paddingBottom: '4rem' }}>
           {/* Badge */}
           <div
             id="hero-badge"
@@ -187,14 +187,16 @@ export default function Home() {
         {/* Scroll indicator */}
         <div style={{
           position: 'absolute',
-          bottom: '2.5rem',
+          bottom: '2rem',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '0.5rem',
-          opacity: 0.4,
+          opacity: 0.45,
+          zIndex: 2,
+          pointerEvents: 'none',
         }}>
           <span style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#C9A84C' }}>
             Découvrir

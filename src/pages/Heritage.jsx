@@ -89,58 +89,30 @@ function Blockquote({ text, color = '#C9A84C', delay = 0 }) {
 }
 
 /* ─────────────────────────────────────────────
-   Composant : placeholder visuel (carte/slider)
+   Composant : image réelle avec révélation au scroll
 ───────────────────────────────────────────── */
-function VisualPlaceholder({ label, icon, color = '#4FA3E0', height = '220px', delay = 0 }) {
-  const [ref, visible] = useReveal(0.15);
-  const [hovered, setHovered] = useState(false);
+function ImageReveal({ src, alt, caption, color = '#C9A84C', delay = 0 }) {
+  const [ref, visible] = useReveal(0.1);
   return (
     <div ref={ref} style={{
       opacity: visible ? 1 : 0,
-      transform: visible ? 'translateY(0)' : 'translateY(30px)',
-      transition: `opacity 0.8s ease ${delay}ms, transform 0.8s cubic-bezier(0.4,0,0.2,1) ${delay}ms`,
-      margin: '2rem 0',
+      transform: visible ? 'translateY(0)' : 'translateY(36px)',
+      transition: `opacity 0.9s ease ${delay}ms, transform 0.9s cubic-bezier(0.4,0,0.2,1) ${delay}ms`,
     }}>
-      <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{
-          height,
-          borderRadius: '16px',
-          border: `1.5px dashed ${hovered ? color : color + '50'}`,
-          background: hovered
-            ? `linear-gradient(135deg, ${color}12, ${color}06)`
-            : `linear-gradient(135deg, ${color}08, ${color}03)`,
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center', gap: '0.75rem',
-          cursor: 'default',
-          transition: 'all 0.3s ease',
-          transform: hovered ? 'translateY(-3px)' : 'none',
-          boxShadow: hovered ? `0 12px 32px ${color}18` : 'none',
-          position: 'relative', overflow: 'hidden',
-        }}
-      >
-        {/* Motif de fond */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: `radial-gradient(${color}15 1px, transparent 1px)`,
-          backgroundSize: '24px 24px',
-          opacity: hovered ? 1 : 0.5,
-          transition: 'opacity 0.3s',
-        }} />
-        <div style={{ fontSize: '2.2rem', position: 'relative' }}>{icon}</div>
-        <p style={{
-          fontFamily: "'Inter',sans-serif",
-          fontSize: '0.82rem', fontWeight: 600, letterSpacing: '0.04em',
-          color: `${color}CC`, margin: 0, textAlign: 'center',
-          padding: '0 2rem', position: 'relative',
-        }}>{label}</p>
-        <div style={{
-          position: 'relative',
-          fontSize: '0.68rem', color: `${color}70`,
-          fontStyle: 'italic', letterSpacing: '0.06em',
-        }}>— Contenu interactif prévu —</div>
-      </div>
+      <figure className="heritage-fig" style={{
+        boxShadow: `0 0 0 1px ${color}20`,
+      }}>
+        <img
+          src={src}
+          alt={alt}
+          className="heritage-img"
+          loading="lazy"
+          decoding="async"
+        />
+        {caption && (
+          <figcaption>{caption}</figcaption>
+        )}
+      </figure>
     </div>
   );
 }
@@ -371,11 +343,11 @@ export default function Heritage() {
         <section id="part-01" style={{ paddingBottom: '7rem' }}>
           <PartTitle num={1} title="Introduction" color="#C9A84C" />
 
-          <VisualPlaceholder
-            label="[Photo aérienne : Saint-Denis en 2004 vs 2024]"
-            icon="📸"
+          <ImageReveal
+            src="/img/Photo_aerienne_StDenis_2004-2024.png"
+            alt="Vue aérienne comparée de Saint-Denis en 2004 et en 2024, montrant la métamorphose urbaine du territoire"
+            caption="Vue aérienne par drone — Saint-Denis, 2004 vs 2024"
             color="#C9A84C"
-            height="200px"
             delay={100}
           />
 
@@ -430,11 +402,11 @@ export default function Heritage() {
             Le changement le plus brutal est géographique : nous ne sommes plus la périphérie, mais un nouveau centre. L'arrivée de la ligne 14 à Saint-Denis Pleyel a été un choc tectonique.
           </NarrativeText>
 
-          <VisualPlaceholder
-            label="[Carte interactive : Nouveau tracé de la Ligne 14 — Saint-Denis Pleyel ↔ Châtelet en 15 min]"
-            icon="🗺️"
+          <ImageReveal
+            src="/img/Carte_interractive_StDenis_Pleyel-Châtelet.png"
+            alt="Carte du nouveau tracé de la ligne 14 du métro reliant Saint-Denis Pleyel à Châtelet en moins de 15 minutes"
+            caption="Grand Paris Express — Ligne 14 · Saint-Denis Pleyel ↔ Châtelet : 14 min"
             color="#4FA3E0"
-            height="240px"
             delay={100}
           />
 
@@ -448,11 +420,11 @@ export default function Heritage() {
             Avec l'interconnexion du Grand Paris Express, cette "Gare XXL" nous place désormais au cœur du réacteur métropolitain. Le paysage urbain a aussi muté. Je marche dans l'ancien Village des Athlètes comme dans un quartier établi.
           </NarrativeText>
 
-          <VisualPlaceholder
-            label="[Slider Avant/Après : Pleyel 2020 vs 2024 — Zone industrielle → Éco-quartier végétalisé]"
-            icon="🔄"
+          <ImageReveal
+            src="/img/Pleyel_2020-2024_Zone_industrielle_Eco-quartier_végé.png"
+            alt="Comparaison avant/après du quartier Pleyel : zone industrielle abandonnée en 2020 transformée en éco-quartier végétalisé en 2024"
+            caption="Avant / Après — Pleyel 2020 vs 2024 · Zone industrielle → Éco-quartier végétalisé"
             color="#00B4A6"
-            height="220px"
             delay={200}
           />
 
@@ -533,11 +505,11 @@ export default function Heritage() {
             S'ajoute à cela la fierté d'avoir accueilli le monde sans incident, redressant bien des têtes ici.
           </NarrativeText>
 
-          <VisualPlaceholder
-            label="[Vue 3D : Centre Aquatique Olympique — Charpente en bois lamellé-collé, 5 000 places]"
-            icon="🏊"
+          <ImageReveal
+            src="/img/Centre_Aquatique_Olympique.png"
+            alt="Centre Aquatique Olympique de Saint-Denis, avec sa charpente en bois lamellé-collé et ses bassins olympiques"
+            caption="Centre Aquatique Olympique — Saint-Denis · Charpente bois lamellé-collé · 5 000 places"
             color="#00B4A6"
-            height="200px"
             delay={200}
           />
         </section>
@@ -583,11 +555,11 @@ export default function Heritage() {
             />
           </div>
 
-          <VisualPlaceholder
-            label="[Graphique évolution loyers : Saint-Denis Pleyel 2019→2025 vs Moyenne nationale]"
-            icon="📊"
+          <ImageReveal
+            src="/img/graphique_loyer_StDenis_Pleyel.png"
+            alt="Graphique montrant l'évolution des loyers à Saint-Denis Pleyel de 2019 à 2025, comparée à la moyenne nationale"
+            caption="Évolution des loyers — Saint-Denis Pleyel 2019→2025 vs Moyenne nationale nationale (source : OLAP)"
             color="#E8547A"
-            height="180px"
             delay={300}
           />
         </section>
